@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { S3Client } from "@aws-sdk/client-s3";
 import { ListBucketsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "1mb" }));
+app.use(cors());
 
 const BUCKET = process.env.BUCKET;
 const S3_END_POINT = process.env.S3_END_POINT;
