@@ -30,11 +30,13 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/upload", async (req, res) => {
+	const fileName = req?.body?.fileName;
+	const fileBody = req?.body?.fileBody;
 	const info = {
 		Bucket: BUCKET,
-		Key: req?.body?.fileName,
-		Body: req?.body?.fileBody,
-		ContentType: "text/javascript",
+		Key: fileName,
+		Body: fileBody,
+		ContentType: `text/${getExtexion(fileName)}`,
 	};
 	await s3Client.send(new PutObjectCommand(info));
 	res.status(200).json({ url: `${S3_END_POINT}/${BUCKET}/${info.Key}` });
@@ -43,3 +45,8 @@ app.post("/upload", async (req, res) => {
 app.listen(PORT, () => {
 	console.log(`App listening on port ${PORT}`);
 });
+
+function getExtexion(fileName) {
+	if (!fileName || typeof fileName !== "string") return "";
+	return fileName.split(".").pop();
+}
