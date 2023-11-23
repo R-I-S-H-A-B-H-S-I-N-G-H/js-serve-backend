@@ -4,6 +4,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { ListBucketsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import dotenv from "dotenv";
 import cors from "cors";
+import { mainJob } from "./job/mainJob.js";
 
 dotenv.config();
 const app = express();
@@ -44,6 +45,14 @@ app.post("/upload", async (req, res) => {
 
 app.listen(PORT, () => {
 	console.log(`App listening on port ${PORT}`);
+});
+
+// for jobs
+mainJob();
+
+// health routes
+app.get("*", async (req, res) => {
+	res.status(200).json("API IS HEALTHY");
 });
 
 function getExtexion(fileName) {
