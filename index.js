@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: "1mb" }));
+// app.use(bodyParser.json({ limit: "1mb" }));
 app.use(cors());
 
 const BUCKET = process.env.BUCKET;
