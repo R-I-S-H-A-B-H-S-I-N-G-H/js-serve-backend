@@ -59,3 +59,5 @@ function getExtexion(fileName) {
 	if (!fileName || typeof fileName !== "string") return "";
 	return fileName.split(".").pop();
 }
+
+export default app;
